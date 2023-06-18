@@ -1,7 +1,4 @@
-import "styles/globals.css"
-import { Inter } from "next/font/google"
-
-const font = Inter({ subsets: ["latin"] })
+import "@/styles/globals.css"
 
 export const metadata = {
   title: "Fuzze",
@@ -11,7 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={font.className}>{children}</body>
+      <body className='w-screen h-screen'>{children}</body>
     </html>
   )
 }
