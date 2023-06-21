@@ -4,7 +4,6 @@ const useFetch = (url, options) => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,29 +17,12 @@ const useFetch = (url, options) => {
         setLoading(false)
       }
     }
-
     fetchData()
-
     return () => {
       //  TODO add cleanup function
     }
   }, [])
-
   return { data, loading, error }
 }
 
-const useLocalStorage = (key, initialValue) => {
-  const [value, setValue] = useState(() => {
-    const item = window.localStorage.getItem(key)
-    return item ? JSON.parse(item) : initialValue
-  })
-
-  useEffect(() => {
-    const item = JSON.stringify(value)
-    window.localStorage.setItem(key, item)
-  }, [value])
-
-  return [value, setValue]
-}
-
-export { useFetch, useLocalStorage }
+export default useFetch
