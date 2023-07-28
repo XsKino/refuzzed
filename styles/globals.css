@@ -13,3 +13,9 @@ html {
   font-size: 16px;
   line-height: 1.5;
 }
+
+i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
