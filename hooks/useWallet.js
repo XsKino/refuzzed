@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import web3 from "@/lib/web3"
 
@@ -22,19 +22,19 @@ const useWallet = () => {
     clearTransactionHistory()
   }
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     if (!publicKey) return
 
     const balance = await web3.getBalance(publicKey)
     setBalance(balance)
 
     setTransactionFee(await web3.getTransactionFee())
-  }
+  })
 
   useEffect(() => {
     getBalance()
     setConnected(!!publicKey)
-  }, [publicKey])
+  }, [getBalance, publicKey])
 
   const addTransaction = ({ txid, slot }) => {
     const latest = {
