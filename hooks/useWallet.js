@@ -6,6 +6,9 @@ const useWallet = () => {
   const [publicKey, setPublicKey] = useLocalStorage("publicKey", null)
   const [connected, setConnected] = useState(false)
   const [balance, setBalance] = useState(0)
+  const [transactionHistory, setTransactionHistory] = useLocalStorage("transactionHistory", [])
+  const [latestTransaction, setLatestTransaction] = useLocalStorage("latestTransaction", null)
+  const [transactionFee, setTransactionFee] = useState(0)
 
   const connectWallet = async () => {
     const { publicKey } = await web3.connect()
@@ -16,10 +19,12 @@ const useWallet = () => {
   const disconnectWallet = () => {
     setPublicKey(null)
     setConnected(false)
+    clearTransactionHistory()
   }
 
   const getBalance = useCallback(async () => {
     if (!publicKey) return
+
     const balance = await web3.getBalance(publicKey)
     setBalance(balance)
 
@@ -60,11 +65,18 @@ const useWallet = () => {
   }
 
   return {
+    phantomIsInstalled: web3.phantomIsInstalled(),
     publicKey,
     connected,
     balance,
     connect: connectWallet,
     disconnect: disconnectWallet,
+    send,
+    transactionHistory,
+    latestTransaction,
+    clearTransactionHistory,
+    transactionFee,
+    maxBalanceForTransaction: (balance - transactionFee - 0.00000001).toFixed(9), //arbitrary 0.00000001 to account for rounding errors
   }
 }
 
