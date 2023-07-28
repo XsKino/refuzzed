@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import web3 from "@/lib/web3"
 
@@ -18,16 +18,46 @@ const useWallet = () => {
     setConnected(false)
   }
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     if (!publicKey) return
     const balance = await web3.getBalance(publicKey)
     setBalance(balance)
-  }
+
+    setTransactionFee(await web3.getTransactionFee())
+  })
 
   useEffect(() => {
     getBalance()
     setConnected(!!publicKey)
-  }, [publicKey])
+  }, [getBalance, publicKey])
+
+  const addTransaction = ({ txid, slot }) => {
+    const latest = {
+      txid,
+      slot,
+      solanaExplorerLink: `https://explorer.solana.com/tx/${txid}?cluster=${web3.SOLANA_NETWORK}`,
+    }
+    setLatestTransaction(latest)
+    setTransactionHistory([latest, ...transactionHistory])
+  }
+
+  const clearTransactionHistory = () => {
+    setTransactionHistory([])
+    setLatestTransaction(null)
+  }
+
+  const send = async (toPublicKey, solAmount) => {
+    if (!publicKey) throw new Error("Wallet not connected")
+
+    const { txid, slot } = await web3.send({
+      fromPublicKey: publicKey,
+      toPublicKey,
+      solAmount,
+    })
+
+    addTransaction({ txid, slot })
+    getBalance()
+  }
 
   return {
     publicKey,
