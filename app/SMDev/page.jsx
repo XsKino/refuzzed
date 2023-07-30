@@ -59,7 +59,7 @@ const Page = () => {
       const userDocSnap = await getDoc(userDocRef);
       if (userDocSnap.exists()) {
         toast("nao nao", {
-          icon: "🚫",
+          icon: "🥵",
         });
       } else {
         await setDoc(userDocRef, user);

@@ -10,8 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Toaster />
       <body className="w-full max-w-2xl m-auto bg-orange-600">
+        <Toaster position="top-center" />
         <Navbar />
         {children}
       </body>
