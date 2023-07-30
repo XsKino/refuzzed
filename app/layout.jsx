@@ -1,10 +1,11 @@
-import "@/styles/globals.css"
-import { Toaster } from "react-hot-toast"
+import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
+import Navbar from "@/components/NavBar";
 
 export const metadata = {
   title: "Fuzze",
   description: "owo",
-}
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -16,5 +17,5 @@ export default function RootLayout({ children }) {
         <Toaster position='top-center' />
       </body>
     </html>
-  )
+  );
 }
