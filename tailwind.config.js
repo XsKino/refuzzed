@@ -8,7 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {},
+      backgroundImage: {
+        omg: "@/img/omg.png",
+      },
     },
   },
   plugins: [],
-}
+};
