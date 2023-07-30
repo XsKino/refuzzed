@@ -191,8 +191,8 @@ export default function LootBoxShop({ className }) {
                       //   lootbox: { name: selectedLootbox.name, amount: amount },
                       // })
                       console.log(selectedLootbox)
-                      // const transaction = await wallet.send(FUZZE_WALLET_ADRESS, solAmount)
-                      // console.log(transaction)
+                      const transaction = await wallet.send(FUZZE_WALLET_ADRESS, solAmount)
+                      console.log(transaction)
                       window.purchase.close()
                       toast.success(`Purchased ${selectedLootbox.name} lootbox`)
                       window.rewards.showModal()
@@ -224,7 +224,7 @@ export default function LootBoxShop({ className }) {
                 </i>
               )}
               {rewards.map(reward => (
-                <div className='flex flex-col gap-2 items-center'>
+                <div key={reward.name} className='flex flex-col gap-2 items-center'>
                   <div className='h-12 aspect-square grid place-content-center rounded-md overflow-hidden bg-gradient-to-t from-foreground to-primary'>
                     <Image
                       alt='drink'

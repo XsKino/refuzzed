@@ -32,6 +32,7 @@ export default function DrinkCatalogue({ className }) {
         )}
         {drinks.map(drink => (
           <li
+            key={drink.name}
             className='flex items-center gap-4 hoverScaleParent cursor-pointer'
             onClick={() => {}}>
             <div className='min-h-20 m ax-h-20 min-w-10 max-w-10 grid place-content-center'>

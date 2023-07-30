@@ -15,7 +15,7 @@ export default function NavBar() {
     <nav className='flex justify-between items-center pt-4 backdrop-blur pl-6 lg:px-[20%]'>
       <div className='flex gap-2'>
         <Link className='mr-6 saturate-50 hover:saturate-100 hover:brightness-125' href='/'>
-          <Image src='/favicon.ico' width={64} height={64} className='h-12' />
+          <Image alt='icon' src='/favicon.ico' width={64} height={64} className='h-12' />
         </Link>
 
         {links.map(({ href, label }) => (
@@ -23,6 +23,7 @@ export default function NavBar() {
           //   {label}
           // </Link>
           <button
+            key={label}
             className='px-6 py-4 opacity-75 hover:opacity-100'
             onClick={() => {
               toast.error("WIP")
