@@ -1,21 +1,23 @@
-import "@/styles/globals.css";
-import { Toaster } from "react-hot-toast";
-import Navbar from "@/components/NavBar";
+import "@/styles/globals.css"
+import { Toaster } from "react-hot-toast"
+import NavBar from "@/components/NavBar"
 
 export const metadata = {
   title: "Fuzze",
   description: "owo",
-};
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body>
-        <NavBar />
-        <hr />
-        <main className='bg-neutral lg:px-[20%]'>{children}</main>
+      <body className='bg-neutral text-foreground'>
+        <main className='lg:px-[20%]'>
+          <NavBar />
+          <hr className='opacity-20' />
+          {children}
+        </main>
         <Toaster position='top-center' />
       </body>
     </html>
-  );
+  )
 }

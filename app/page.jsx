@@ -1,54 +1,15 @@
-"use client";
-import Image from "next/image";
-import omg from "@/public/img/omg.png";
-import nya from "@/public/img/nekolove.png";
+import DrinkCatalogue from "@/components/DrinkCatalogue"
+import LootBoxShop from "@/components/LootBoxShop"
 
-import { useState } from "react";
-
-const Page = () => {
-  const images = [omg, nya];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const goToPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
+export default async function Home() {
   return (
-    <div className="flex items-center justify-center pt-6">
-      <div className="relative">
-        <div>
-          <Image
-            src={images[currentImageIndex]}
-            alt={`Image ${currentImageIndex + 1}`}
-            width={250}
-            height={250}
-            className="mx-auto"
-          />
-        </div>
-        <button
-          onClick={goToPreviousImage}
-          className={`absolute top-1/2 left-0 transform -translate-y-1/2 text-3xl md:text-4xl text-white`}
-        >
-          &#8249;
-        </button>
-        <button
-          onClick={goToNextImage}
-          className={`absolute top-1/2 right-0 transform -translate-y-1/2 text-3xl md:text-4xl text-white`}
-        >
-          &#8250;
-        </button>
+    <div className='flex gap-4'>
+      <div className='bg-primary bg-opacity-50 p-4 grid '>
+        <LootBoxShop className='flex flex-col gap-4' />
+      </div>
+      <div className='bg-primary bg-opacity-50 p-4 grid '>
+        <DrinkCatalogue className='flex flex-col gap-4' />
       </div>
     </div>
-  );
-};
-
-export default Page;
+  )
+}
