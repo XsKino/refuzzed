@@ -3,10 +3,11 @@
 import Avatar from "@/components/Avatar"
 import Link from "next/link"
 import Image from "next/image"
+import toast from "react-hot-toast"
 
 const links = [
-  { href: "/market", label: "Market" },
-  { href: "/inventory", label: "Inventory" },
+  { href: "#", label: "Market" },
+  { href: "#", label: "Inventory" },
 ]
 
 export default function NavBar() {
@@ -18,9 +19,16 @@ export default function NavBar() {
         </Link>
 
         {links.map(({ href, label }) => (
-          <Link className='px-6 py-4 opacity-75 hover:opacity-100' href={href}>
+          // <Link className='px-6 py-4 opacity-75 hover:opacity-100' href={href}>
+          //   {label}
+          // </Link>
+          <button
+            className='px-6 py-4 opacity-75 hover:opacity-100'
+            onClick={() => {
+              toast.error("WIP")
+            }}>
             {label}
-          </Link>
+          </button>
         ))}
       </div>
       <Avatar />

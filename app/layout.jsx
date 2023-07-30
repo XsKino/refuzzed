@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           <NavBar />
           <hr className='opacity-20 lg-mx-[20%]' />
         </div>
-        <main className='px-6 lg:px-[20%]'>{children}</main>
+        <main className='px-6 lg:px-[20%] pb-8'>{children}</main>
         <Toaster position='top-center' />
       </body>
     </html>

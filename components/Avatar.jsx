@@ -37,6 +37,13 @@ export default function Avatar() {
     }
   }
 
+  const handleDisconnect = () => {
+    wallet.disconnect()
+    toast.dismiss()
+    toast.success("Wallet disconnected")
+    setUser(null)
+  }
+
   const handleRegisterClick = async () => {
     const curr = await fetchUser(wallet.publicKey)
     setUser(curr)
@@ -58,7 +65,11 @@ export default function Avatar() {
   return (
     <div className='flex gap-4 w-36 items-center pb-4 cursor-pointer'>
       {user ? (
-        <>
+        <button
+          className='flex gap-2'
+          onClick={() => {
+            window.disconnectModal.showModal()
+          }}>
           <Image
             // src={user.avatar}
             src='/img/silly.png'
@@ -67,8 +78,11 @@ export default function Avatar() {
             height={128}
             className='rounded-full aspect-square h-12 w-12'
           />
-          <p className='font-semibold text-lg'>{user.username}</p>
-        </>
+          <div>
+            <p className='font-semibold text-lg'>{user.username}</p>
+            <p className='text-xs opacity-70'>{wallet.balance.toFixed(5)} SOL</p>
+          </div>
+        </button>
       ) : wallet.publicKey ? (
         <button
           onClick={handleRegisterClick}
@@ -81,6 +95,19 @@ export default function Avatar() {
           Connect
         </button>
       )}
+
+      <dialog
+        id='disconnectModal'
+        className='bg-transparent bg-grad from-[#f225] to-[#f222] shadow-md backdrop-blur backdrop-brightness-90 text-foreground rounded-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-12 min-w-[12rem]'>
+        <button
+          className='border-none outline-none p-4'
+          onClick={() => {
+            handleDisconnect()
+            window.disconnectModal.close()
+          }}>
+          Disconnect
+        </button>
+      </dialog>
     </div>
   )
 }

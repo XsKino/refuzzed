@@ -24,3 +24,11 @@ hr {
   border: none;
   border-top: 1px solid #fff;
 }
+
+.hoverScaleParent .hoverScaleChildren {
+  transition: transform 200ms ease-in-out;
+}
+
+.hoverScaleParent:hover .hoverScaleChildren {
+  transform: rotate(-20deg) scale(1.3);
+}

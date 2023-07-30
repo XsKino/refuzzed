@@ -11,13 +11,18 @@ const useWallet = () => {
   const [transactionFee, setTransactionFee] = useState(0)
 
   const connectWallet = async () => {
-    const { publicKey } = await web3.connect()
-    setPublicKey(publicKey.toString())
-    setConnected(true)
+    try {
+      const { publicKey } = await web3.connect()
+      setPublicKey(publicKey.toString())
+      setConnected(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const disconnectWallet = () => {
     setPublicKey(null)
+    web3.disconnect()
     setConnected(false)
     clearTransactionHistory()
   }

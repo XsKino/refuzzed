@@ -27,15 +27,29 @@ export async function GET(request) {
 
 export async function POST(request) {
   const data = await request.json()
-  const { publicKey, username } = data
+  const { publicKey, username, lootbox } = data
 
   const userDocRef = doc(users, publicKey)
 
   try {
     const userDocSnap = await getDoc(userDocRef)
 
+    let lootBoxesArray = userDocSnap.data().lootBoxes ? userDocSnap.data().lootBoxes : []
+    let lootBoxToAdd = lootBoxesArray.find(myLoot => myLoot.name === lootbox.id)
+    if (lootBoxToAdd) {
+      lootBoxToAdd.amount += lootbox.amount
+    } else {
+      lootBoxToAdd = lootbox
+    }
+    lootBoxesArray.filter(myLoot => myLoot.name !== lootbox.name)
+    lootBoxesArray.push(lootBoxToAdd)
+
     if (userDocSnap.exists()) {
-      return NextResponse.json({ userExists: true, user: userDocSnap.data() })
+      return NextResponse.json({
+        userExists: true,
+        user: userDocSnap.data(),
+        lootBoxes: lootBoxesArray,
+      })
     } else {
       const newUser = await setDoc(userDocRef, { username })
       return NextResponse.json({ userExists: false, user: newUser })
