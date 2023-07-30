@@ -56,7 +56,7 @@ export default function Avatar() {
   }, [wallet.publicKey])
 
   return (
-    <div className='flex gap-4 w-36 items-center'>
+    <div className='flex gap-4 w-36 items-center pb-4 cursor-pointer'>
       {user ? (
         <>
           <Image

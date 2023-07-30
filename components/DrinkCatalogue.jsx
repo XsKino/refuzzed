@@ -12,17 +12,19 @@ export default function DrinkCatalogue({ className }) {
   const [drinks, setDrinks] = useState([])
 
   useEffect(() => {
-    setDrinks(getDrinks())
+    ;(async () => {
+      setDrinks(await getDrinks())
+    })()
   }, [])
 
   return (
     <ul className={className}>
-      {/* {drinks.map(drink => (
+      {drinks.map(drink => (
         <li>
           <h3>{drink.name}</h3>
           <p>{"⭐⭐⭐⭐⭐".slice(0, drink.rarity)}</p>
         </li>
-      ))} */}
+      ))}
     </ul>
   )
 }
