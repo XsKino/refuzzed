@@ -9,8 +9,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className='w-screen h-screen overflow-x-hidden'>{children}</body>
-      <Toaster />
+      <body>
+        <NavBar />
+        <hr />
+        <main className='bg-neutral lg:px-[20%]'>{children}</main>
+        <Toaster position='top-center' />
+      </body>
     </html>
   )
 }

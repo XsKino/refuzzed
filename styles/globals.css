@@ -19,3 +19,8 @@ i {
   align-items: center;
   justify-content: center;
 }
+
+hr {
+  border: none;
+  border-top: 1px solid #fff;
+}
