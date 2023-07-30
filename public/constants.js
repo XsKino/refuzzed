@@ -1,0 +1,1 @@
+export const FUZZE_WALLET_ADRESS = "Gifb2ZMPNw9c6CAoM1U1ZLTvogAVbbS9qzSrfFJsd7hY"

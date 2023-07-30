@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image"
 import Link from "next/link"
 import { montserrat } from "@/styles/fonts"
 import useWallet from "@/hooks/useWallet"
@@ -15,7 +14,6 @@ import { IoCopy } from "react-icons/io5"
 
 export default function Home() {
   const $ = element => document.querySelector(element)
-  const $$ = element => document.querySelectorAll(element)
 
   const wallet = useWallet()
 
@@ -58,6 +56,9 @@ export default function Home() {
       <div className='flex flex-col gap-8 min-h-[100svh] min-w-1/2 px-8 pt-[25svh] items-center bg-white'>
         <p className=' text-blue-500 text-[76px] font-bold'>F U Z Z E</p>
         <p className=' text-blue-300 text-[32px] font-bold'>useWallet Showcase</p>
+        <Link href='/dev/lootboxes' className='p-4 px-6 bg-blue-500 text-white rounded-md'>
+          purchase Lootbox
+        </Link>
         <div className='flex gap-8'>
           <button
             className='rounded-md bg-blue-500 font-bold text-white p-8 hover:bg-blue-700 active:bg-blue-900'
