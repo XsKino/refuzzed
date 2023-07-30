@@ -73,6 +73,8 @@ export default function Avatar() {
           <Image
             // src={user.avatar}
             src='/img/silly.png'
+            placeholder='blur'
+            blurDataURL={"/img/silly.png"}
             alt='avatar'
             width={128}
             height={128}

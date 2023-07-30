@@ -39,6 +39,8 @@ export default function DrinkCatalogue({ className }) {
               <Image
                 alt='drink'
                 src={`/img/drinks/${drink.name.toLowerCase().replaceAll(" ", "_")}.png`}
+                placeholder='blur'
+                blurDataURL={`/img/drinks/${drink.name.toLowerCase().replaceAll(" ", "_")}.png`}
                 height={100}
                 width={100}
                 className='h-full aspect-square hoverScaleChildren'

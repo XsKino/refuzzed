@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
       <body className='bg-neutral text-foreground'>
         <div className='sticky top-0'>
           <NavBar />
-          <hr className='opacity-20 lg-mx-[20%]' />
+          <hr className='opacity-20 lg:mx-[20%]' />
         </div>
         <main className='px-6 lg:px-[20%] pb-8'>{children}</main>
         <Toaster position='top-center' />

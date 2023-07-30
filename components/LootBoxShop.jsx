@@ -116,6 +116,10 @@ export default function LootBoxShop({ className }) {
                     <Image
                       alt='lootbox'
                       src={`/img/lootboxes/${lootBox.name.toLowerCase().replaceAll(" ", "_")}.png`}
+                      placeholder='blur'
+                      blurDataURL={`/img/lootboxes/${lootBox.name
+                        .toLowerCase()
+                        .replaceAll(" ", "_")}.png`}
                       height={100}
                       width={100}
                       className='h-full aspect-square hoverScaleChildren'
@@ -229,6 +233,10 @@ export default function LootBoxShop({ className }) {
                     <Image
                       alt='drink'
                       src={`/img/drinks/${reward.name.toLowerCase().replaceAll(" ", "_")}.png`}
+                      placeholder='blur'
+                      blurDataURL={`/img/drinks/${reward.name
+                        .toLowerCase()
+                        .replaceAll(" ", "_")}.png`}
                       height={100}
                       width={100}
                       className='h-full aspect-square'
