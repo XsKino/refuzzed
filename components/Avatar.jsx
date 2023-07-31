@@ -13,6 +13,7 @@ export default function Avatar() {
   const router = useRouter()
 
   const [user, setUser] = useState(null)
+  const [showDisconnectModal, setShowDisconnectModal] = useState(false)
 
   const fetchUser = async publicKey => {
     console.log(publicKey)
@@ -68,7 +69,7 @@ export default function Avatar() {
         <button
           className='flex gap-2'
           onClick={() => {
-            window.disconnectModal.showModal()
+            setShowDisconnectModal(true)
           }}>
           <Image
             // src={user.avatar}
@@ -98,18 +99,25 @@ export default function Avatar() {
         </button>
       )}
 
-      <dialog
-        id='disconnectModal'
-        className='bg-transparent bg-grad from-[#f225] to-[#f222] shadow-md backdrop-blur backdrop-brightness-90 text-foreground rounded-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-12 min-w-[12rem]'>
-        <button
-          className='border-none outline-none p-4'
+      {showDisconnectModal && (
+        <div
+          className='modalOverlay'
           onClick={() => {
-            handleDisconnect()
-            window.disconnectModal.close()
+            setShowDisconnectModal(false)
           }}>
-          Disconnect
-        </button>
-      </dialog>
+          <div className='bg-transparent bg-gradient-to-t from-[#f225] to-[#f222] shadow-md backdrop-blur backdrop-brightness-90 text-foreground rounded-md px-12 min-w-[12rem]'>
+            <button
+              className='border-none outline-none p-4'
+              onClick={e => {
+                e.stopPropagation()
+                handleDisconnect()
+                setShowDisconnectModal(false)
+              }}>
+              Disconnect
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
