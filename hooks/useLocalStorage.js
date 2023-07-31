@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react"
 
 const useLocalStorage = (key, initialValue) => {
+  const isClient = typeof window !== "undefined"
   const [value, setValue] = useState(() => {
-    const item = window?.localStorage?.getItem(key)
+    const item = isClient ? window.localStorage.getItem(key) : null
     return item ? JSON.parse(item) : initialValue
   })
   useEffect(() => {
-    const item = JSON.stringify(value)
-    window?.localStorage?.setItem(key, item)
+    if (isClient) {
+      const item = JSON.stringify(value)
+      window.localStorage.setItem(key, item)
+    }
   }, [value])
   return [value, setValue]
 }
