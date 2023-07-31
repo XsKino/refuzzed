@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import useWallet from "@/hooks/useWallet"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -9,63 +8,63 @@ import toast from "react-hot-toast"
 import axios from "axios"
 
 export default function Avatar() {
-  const wallet = useWallet()
-  const router = useRouter()
+  // const wallet = useWallet()
+  // const router = useRouter()
 
-  const [user, setUser] = useState(null)
-  const [showDisconnectModal, setShowDisconnectModal] = useState(false)
+  // const [user, setUser] = useState(null)
+  // const [showDisconnectModal, setShowDisconnectModal] = useState(false)
 
-  const fetchUser = async publicKey => {
-    console.log(publicKey)
-    const res = await axios.get(`/api/users?publicKey=${publicKey}`)
-    setUser(res.data.userExists ? res.data.user : null)
-    return res.data.userExists ? res.data.user : null
-  }
+  // const fetchUser = async publicKey => {
+  //   console.log(publicKey)
+  //   const res = await axios.get(`/api/users?publicKey=${publicKey}`)
+  //   setUser(res.data.userExists ? res.data.user : null)
+  //   return res.data.userExists ? res.data.user : null
+  // }
 
-  const handleConnect = async () => {
-    const msg = wallet.connected ? "Wallet Refreshed" : "Wallet Connected"
-    try {
-      await wallet.connect()
-      toast.dismiss()
-      toast.success(msg)
-    } catch (error) {
-      toast.error(error.message)
-      if (!wallet.phantomIsInstalled) {
-        setTimeout(() => {
-          window.open("https://phantom.app/", "_blank")
-        }, 1500)
-      }
-    }
-  }
+  // const handleConnect = async () => {
+  //   const msg = wallet.connected ? "Wallet Refreshed" : "Wallet Connected"
+  //   try {
+  //     await wallet.connect()
+  //     toast.dismiss()
+  //     toast.success(msg)
+  //   } catch (error) {
+  //     toast.error(error.message)
+  //     if (!wallet.phantomIsInstalled) {
+  //       setTimeout(() => {
+  //         window.open("https://phantom.app/", "_blank")
+  //       }, 1500)
+  //     }
+  //   }
+  // }
 
-  const handleDisconnect = () => {
-    wallet.disconnect()
-    toast.dismiss()
-    toast.success("Wallet disconnected")
-    setUser(null)
-  }
+  // const handleDisconnect = () => {
+  //   wallet.disconnect()
+  //   toast.dismiss()
+  //   toast.success("Wallet disconnected")
+  //   setUser(null)
+  // }
 
-  const handleRegisterClick = async () => {
-    const curr = await fetchUser(wallet.publicKey)
-    setUser(curr)
-    if (!curr) {
-      router.push("/register")
-    }
-  }
+  // const handleRegisterClick = async () => {
+  //   const curr = await fetchUser(wallet.publicKey)
+  //   setUser(curr)
+  //   if (!curr) {
+  //     router.push("/register")
+  //   }
+  // }
 
-  useEffect(() => {
-    try {
-      wallet.connect()
-    } catch (err) {}
+  // useEffect(() => {
+  //   try {
+  //     wallet.connect()
+  //   } catch (err) {}
 
-    if (wallet.publicKey) {
-      fetchUser(wallet.publicKey)
-    }
-  }, [wallet.publicKey])
+  //   if (wallet.publicKey) {
+  //     fetchUser(wallet.publicKey)
+  //   }
+  // }, [wallet.publicKey])
 
   return (
     <div className='flex gap-4 w-36 items-center pb-4 cursor-pointer'>
-      {user ? (
+      {/* {user ? (
         <button
           className='flex gap-2'
           onClick={() => {
@@ -117,7 +116,7 @@ export default function Avatar() {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
