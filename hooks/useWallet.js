@@ -70,7 +70,7 @@ const useWallet = () => {
   }
 
   return {
-    phantomIsInstalled: web3.phantomIsInstalled(),
+    phantomIsInstalled: web3.phantomIsInstalled,
     publicKey,
     connected,
     balance,
