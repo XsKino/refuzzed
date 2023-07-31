@@ -10,6 +10,8 @@ const useLocalStorage = (key, initialValue) => {
     if (isClient) {
       const item = JSON.stringify(value)
       window.localStorage.setItem(key, item)
+      console.log("⚪ useLocalStorage useEffect", key, item)
+      console.log("⚪ Actual LocalStorage", window.localStorage.getItem(key))
     }
   }, [value])
   return [value, setValue]

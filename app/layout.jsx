@@ -4,7 +4,7 @@ import NavBar from "@/components/NavBar"
 
 export const metadata = {
   title: "Fuzze",
-  description: "owo",
+  description: "Win Unique Soda Flavor NFTs!",
   icons: [
     {
       rel: "icon",

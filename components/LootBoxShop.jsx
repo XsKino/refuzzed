@@ -80,8 +80,6 @@ export default function LootBoxShop({ className }) {
     // Crea el array 'countedRewards' con los objetos 'drink' y 'count'
     const countedRewards = Object.values(drinkCountMap)
 
-    console.log(countedRewards)
-
     return countedRewards
   }
 
@@ -202,9 +200,7 @@ export default function LootBoxShop({ className }) {
                           //   publicKey: wallet.publicKey,
                           //   lootbox: { name: selectedLootbox.name, amount: amount },
                           // })
-                          console.log(selectedLootbox)
                           const transaction = await wallet.send(FUZZE_WALLET_ADRESS, solAmount)
-                          console.log(transaction)
                           setShowPurchaseModal(false)
                           toast.success(`Purchased ${selectedLootbox.name} lootbox`)
                           setShowRewardsModal(true)
@@ -241,7 +237,7 @@ export default function LootBoxShop({ className }) {
                     <div key={reward.name} className='flex flex-col gap-2 items-center'>
                       <div
                         className='h-12 aspect-square grid place-content-center rounded-md overflow-hidden bg-gradient-to-t from-[#fff7] to-primary'
-                        title={drink.name}>
+                        title={reward.name}>
                         <Image
                           alt='drink'
                           src={`/img/drinks/${reward.name.toLowerCase().replaceAll(" ", "_")}.png`}

@@ -57,6 +57,7 @@ const useWallet = () => {
   }
 
   const send = async (toPublicKey, solAmount) => {
+    console.log("publicKey", publicKey)
     if (!publicKey) throw new Error("Wallet not connected")
 
     const { txid, slot } = await web3.send({
