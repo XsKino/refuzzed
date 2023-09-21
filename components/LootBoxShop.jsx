@@ -1,20 +1,17 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
-import useWallet from "@/hooks/useWallet"
-import { FUZZE_WALLET_ADRESS } from "@/public/constants"
-import axios from "axios"
-import toast from "react-hot-toast"
-import Image from "next/image"
+import { useEffect, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { FUZZE_WALLET_ADRESS } from '@/public/constants'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import Image from 'next/image'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
-axios.defaults.headers["Content-Type"] = "application/json"
-axios.defaults.responseType = "json"
-
-import { AiOutlineLoading3Quarters } from "react-icons/ai"
+axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.responseType = 'json'
 
 export default function LootBoxShop({ className }) {
-  const wallet = useWallet()
-
   const getLootboxes = async () => {
     const res = await axios.get(`/api/lootboxes`)
     const sorted = res.data.lootBoxes.sort((a, b) => a.price - b.price)
@@ -35,13 +32,7 @@ export default function LootBoxShop({ className }) {
     const rewardsRarity4 = drinks.filter(drink => drink.rarity === 4)
     const rewardsRarity5 = drinks.filter(drink => drink.rarity === 5)
 
-    const filteredRewards = [
-      rewardsRarity1,
-      rewardsRarity2,
-      rewardsRarity3,
-      rewardsRarity4,
-      rewardsRarity5,
-    ]
+    const filteredRewards = [rewardsRarity1, rewardsRarity2, rewardsRarity3, rewardsRarity4, rewardsRarity5]
 
     const rewards = []
     lootTable.forEach(loot => {
@@ -116,11 +107,9 @@ export default function LootBoxShop({ className }) {
                   <div className=' m-4 mb-0 grid place-content-center w-24 aspect-square rounded-lg overflow-hidden'>
                     <Image
                       alt='lootbox'
-                      src={`/img/lootboxes/${lootBox.name.toLowerCase().replaceAll(" ", "_")}.png`}
+                      src={`/img/lootboxes/${lootBox.name.toLowerCase().replaceAll(' ', '_')}.png`}
                       placeholder='blur'
-                      blurDataURL={`/img/lootboxes/${lootBox.name
-                        .toLowerCase()
-                        .replaceAll(" ", "_")}.png`}
+                      blurDataURL={`/img/lootboxes/${lootBox.name.toLowerCase().replaceAll(' ', '_')}.png`}
                       height={100}
                       width={100}
                       className='h-full aspect-square hoverScaleChildren'
@@ -156,9 +145,7 @@ export default function LootBoxShop({ className }) {
                     {selectedLootbox && (
                       <Image
                         alt='lootbox'
-                        src={`/img/lootboxes/${selectedLootbox.name
-                          .toLowerCase()
-                          .replaceAll(" ", "_")}.png`}
+                        src={`/img/lootboxes/${selectedLootbox.name.toLowerCase().replaceAll(' ', '_')}.png`}
                         height={100}
                         width={100}
                         className='h-full aspect-square hoverScaleChildren'
@@ -195,18 +182,18 @@ export default function LootBoxShop({ className }) {
                         try {
                           // const amount = document.getElementById("lootboxPurchaseAmount").value
                           // const solAmount = (selectedLootbox.price / 1000) * amount
+                          // eslint-disable-next-line no-unused-vars
                           const solAmount = selectedLootbox.price / 1000
                           // const user = await axios.post(`/api/users`, {
                           //   publicKey: wallet.publicKey,
                           //   lootbox: { name: selectedLootbox.name, amount: amount },
                           // })
-                          const transaction = await wallet.send(FUZZE_WALLET_ADRESS, solAmount)
                           setShowPurchaseModal(false)
                           toast.success(`Purchased ${selectedLootbox.name} lootbox`)
                           setShowRewardsModal(true)
                           setRewards(await getRewards(selectedLootbox.lootTable))
                         } catch (error) {
-                          toast.error(error.message || "Something went wrong")
+                          toast.error(error.message || 'Something went wrong')
                           console.log(error)
                         }
                       })()
@@ -240,11 +227,9 @@ export default function LootBoxShop({ className }) {
                         title={reward.name}>
                         <Image
                           alt='drink'
-                          src={`/img/drinks/${reward.name.toLowerCase().replaceAll(" ", "_")}.png`}
+                          src={`/img/drinks/${reward.name.toLowerCase().replaceAll(' ', '_')}.png`}
                           placeholder='blur'
-                          blurDataURL={`/img/drinks/${reward.name
-                            .toLowerCase()
-                            .replaceAll(" ", "_")}.png`}
+                          blurDataURL={`/img/drinks/${reward.name.toLowerCase().replaceAll(' ', '_')}.png`}
                           height={100}
                           width={100}
                           className='h-full aspect-square'

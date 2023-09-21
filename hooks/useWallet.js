@@ -1,89 +1,39 @@
-import { useState, useEffect, useCallback } from "react"
-import useLocalStorage from "@/hooks/useLocalStorage"
-import web3 from "@/lib/web3"
+/* eslint-disable no-unused-vars */
+import { WalletNotConnectedError } from '@solana/wallet-adapter-base'
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
+import { Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { useCallback } from 'react'
 
-const useWallet = () => {
-  const [publicKey, setPublicKey] = useLocalStorage("publicKey", null)
-  const [connected, setConnected] = useState(false)
-  const [balance, setBalance] = useState(0)
-  const [transactionHistory, setTransactionHistory] = useLocalStorage("transactionHistory", [])
-  const [latestTransaction, setLatestTransaction] = useLocalStorage("latestTransaction", null)
-  const [transactionFee, setTransactionFee] = useState(0)
+export default function useMyWallet() {
+  const { connection } = useConnection()
+  const { publicKey, sendTransaction } = useWallet()
 
-  const connectWallet = async () => {
-    try {
-      const { publicKey } = await web3.connect()
-      setPublicKey(publicKey.toString())
-      setConnected(true)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const send = useCallback(
+    async (toPubkey, solAmount) => {
+      if (!publicKey) throw new WalletNotConnectedError()
 
-  const disconnectWallet = () => {
-    setPublicKey(null)
-    web3.disconnect()
-    setConnected(false)
-    clearTransactionHistory()
-  }
+      // 890880 lamports as of 2022-09-01
+      const lamports = LAMPORTS_PER_SOL * solAmount
 
-  const getBalance = useCallback(async () => {
-    if (!publicKey) return
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey(toPubkey),
+          lamports
+        })
+      )
 
-    const balance = await web3.getBalance(publicKey)
-    setBalance(balance)
+      const {
+        context: { slot: minContextSlot },
+        value: { blockhash, lastValidBlockHeight }
+      } = await connection.getLatestBlockhashAndContext()
 
-    setTransactionFee(await web3.getTransactionFee())
-  })
+      const signature = await sendTransaction(transaction, connection, { minContextSlot })
 
-  useEffect(() => {
-    getBalance()
-    setConnected(!!publicKey)
-  }, [getBalance, publicKey])
+      await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature })
+    },
+    [publicKey, sendTransaction, connection]
+  )
 
-  const addTransaction = ({ txid, slot }) => {
-    const latest = {
-      txid,
-      slot,
-      solanaExplorerLink: `https://explorer.solana.com/tx/${txid}?cluster=${web3.SOLANA_NETWORK}`,
-    }
-    setLatestTransaction(latest)
-    setTransactionHistory([latest, ...transactionHistory])
-  }
-
-  const clearTransactionHistory = () => {
-    setTransactionHistory([])
-    setLatestTransaction(null)
-  }
-
-  const send = async (toPublicKey, solAmount) => {
-    console.log("publicKey", publicKey)
-    if (!publicKey) throw new Error("Wallet not connected")
-
-    const { txid, slot } = await web3.send({
-      fromPublicKey: publicKey,
-      toPublicKey,
-      solAmount,
-    })
-
-    addTransaction({ txid, slot })
-    getBalance()
-  }
-
-  return {
-    phantomIsInstalled: web3.phantomIsInstalled,
-    publicKey,
-    connected,
-    balance,
-    connect: connectWallet,
-    disconnect: disconnectWallet,
-    send,
-    transactionHistory,
-    latestTransaction,
-    clearTransactionHistory,
-    transactionFee,
-    maxBalanceForTransaction: (balance - transactionFee - 0.00000001).toFixed(9), //arbitrary 0.00000001 to account for rounding errors
-  }
+  return { publicKey, send }
 }
-
-export default useWallet
