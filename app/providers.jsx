@@ -13,11 +13,14 @@ import {
   WalletMultiButton
 } from '@solana/wallet-adapter-react-ui'
 import { clusterApiUrl } from '@solana/web3.js'
-// Default styles that can be overridden by your app
+import { useMemo } from 'react'
+
+import { Toaster } from 'react-hot-toast'
+
+// Default Solana Wallet Adapter styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
 
 // React Hot Toast
-import { Toaster } from 'react-hot-toast'
 
 export function Providers({ children }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.

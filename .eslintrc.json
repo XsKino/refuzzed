@@ -5,6 +5,7 @@
   },
   "extends": [
     "./node_modules/standard/eslintrc.json", // npm i -D standard
+    "eslint-config-next", // npm i -D eslint-config-next
     "eslint:recommended",
     "plugin:react/recommended",
     "next",
