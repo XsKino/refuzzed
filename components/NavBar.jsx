@@ -23,7 +23,7 @@ import { Divider } from '@nextui-org/divider'
 
 const links = [
   { href: '#', label: 'Market' },
-  { href: '#', label: 'Inventory' }
+  { href: '/inventory', label: 'Inventory' }
 ]
 
 export default function NavBar({ className }) {
