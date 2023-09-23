@@ -87,9 +87,14 @@ export default function NavBar({ className }) {
       </NavbarContent>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        <ButtonGroup variant='light' color='foreground'>
+        <ButtonGroup className='h-full' variant='light' color='foreground'>
           {links.map((item, index) => (
-            <Button key={`${item.href}-${index}`} as={NextLink} href={item.href}>
+            <Button
+              className='h-full grid place-content-center'
+              radius='none'
+              key={`${item.href}-${index}`}
+              as={NextLink}
+              href={item.href}>
               {item.label}
             </Button>
           ))}

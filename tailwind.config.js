@@ -1,4 +1,5 @@
 import { nextui } from '@nextui-org/react'
+import { darkThemeColors } from './styles/themeColors'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,15 +11,23 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: '#d14ff4',
-        secondary: '#ce00b9',
-        accent: '#6539d5',
-        neutral: '#17051c',
-        foreground: '#f0f0f0'
-      }
+      // colors: {
+      //   primary: '#d14ff4',
+      //   secondary: '#ce00b9',
+      //   accent: '#6539d5',
+      //   neutral: '#17051c',
+      //   foreground: '#f0f0f0'
+      // }
     }
   },
   darkMode: 'class',
-  plugins: [nextui()]
+  plugins: [
+    nextui({
+      themes: {
+        dark: {
+          colors: darkThemeColors
+        }
+      }
+    })
+  ]
 }
