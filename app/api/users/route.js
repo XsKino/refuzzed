@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server"
-import { getFirestore, collection, setDoc, doc, getDoc } from "firebase/firestore"
-import firebase from "lib/firebase"
+import { NextResponse } from 'next/server'
+import { getFirestore, collection, setDoc, doc, getDoc } from 'firebase/firestore'
+import firebase from 'lib/firebase'
 
 const db = getFirestore(firebase)
-const users = collection(db, "users")
+const users = collection(db, 'users')
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
-  const publicKey = searchParams.get("publicKey")
+  const publicKey = searchParams.get('publicKey')
 
   const userDocRef = doc(users, publicKey)
 
@@ -48,7 +48,7 @@ export async function POST(request) {
     if (userDocSnap.exists()) {
       return NextResponse.json({
         userExists: true,
-        user: userDocSnap.data(),
+        user: userDocSnap.data()
         // lootBoxes: lootBoxesArray,
       })
     } else {
