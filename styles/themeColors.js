@@ -1,6 +1,7 @@
 export const darkThemeColors = {
   background: '#3C4048',
   foreground: '#EAEAEA',
+  focus: '#EAEAEA',
   primary: {
     50: '#d8ffff',
     100: '#acfdff',

@@ -18,13 +18,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' className='dark'>
-      <body className='bg-neutral text-foreground'>
+      <body className='bg-background text-foreground'>
         <Providers>
-          <div className='sticky top-0'>
-            <NavBar />
-            <hr className='opacity-20 lg:mx-[20%]' />
-          </div>
-          <main className='px-6 lg:px-[20%] pb-8'>{children}</main>
+          <NavBar />
+          <main className='m-auto w-full max-w-screen-xl pb-8'>{children}</main>
+          {/* <Footer /> */}
         </Providers>
       </body>
     </html>

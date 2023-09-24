@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { FUZZE_WALLET_ADRESS } from '@/public/constants'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
